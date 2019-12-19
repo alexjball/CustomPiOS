@@ -1,0 +1,14 @@
+[Unit]
+Description=Expose /dev/video0 at rtsp://raspberrypi:8554/stream
+Requires=multi-user.target
+BindsTo=dev-video0.device
+After=dev-video0.device multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/v4l2rtspserver/v4l2rtspserver -u "stream" -W1920 -H1080 -F5 -fH264 -c
+RestartSec=10s
+Restart=always
+
+[Install]
+WantedBy=default.target dev-video0.device
